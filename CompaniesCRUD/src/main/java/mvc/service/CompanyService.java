@@ -26,21 +26,10 @@ public class CompanyService {
     }
 
     public void removeCompanyById(int id) {
-        Company companyToDelete = companyDao.getById(id);
-
-        if (companyToDelete.getChildCompanies() != null){
-            for (Company company : companyToDelete.getChildCompanies()) {
-                removeCompanyById(company.getId());
-            }
-        } else {
-            if (companyToDelete.getParent() != null){
-                companyToDelete.getParent().getChildCompanies().remove(companyToDelete);
-                companyDao.update(companyToDelete.getParent());
-            }
+        if (companyDao.getById(id).getChildCompanies().isEmpty()){
+            System.err.println("deleting");
             companyDao.removeById(id);
-
         }
-
     }
 
     public Company getCompanyById(int id) {
