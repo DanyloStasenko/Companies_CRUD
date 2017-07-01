@@ -24,6 +24,7 @@ public class Company {
     @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
     private List<Company> childCompanies;
 
+    private double childEarnings;
 
     public Company() {
     }
@@ -47,7 +48,9 @@ public class Company {
     }
 
     public void setAproximatedEarnings(double aproximatedEarnings) {
-        this.aproximatedEarnings = aproximatedEarnings;
+        if (aproximatedEarnings > 0){
+            this.aproximatedEarnings = aproximatedEarnings;
+        }
     }
 
     public String getName() {
@@ -76,6 +79,28 @@ public class Company {
 
     public void setParent(Company parent) {
         this.parent = parent;
+    }
+
+    public double getChildEarnings() {
+        /*if (getParent() == null){
+            return 0;
+        }*/
+        if (childCompanies.isEmpty()) {
+            return aproximatedEarnings;
+        } else {
+            double sum = 0;
+            for (Company childCompany : childCompanies) {
+                sum += childCompany.getChildEarnings();
+            }
+
+           return sum + aproximatedEarnings;
+
+        }
+
+    }
+
+    public void setChildEarnings(double childEarnings) {
+        this.childEarnings = childEarnings;
     }
 
     @Override

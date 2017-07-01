@@ -69,6 +69,14 @@ public class MainController {
         List<Company> list = companyService.getCompaniesList();
         list.removeIf(company -> company.getParent() != null);
 
+        for (Company company : list) {
+            company.setChildEarnings(company.getChildEarnings());
+            if (company.getChildCompanies().isEmpty()){
+                company.setChildEarnings(0);
+            }
+        }
+
+
         model.addAttribute("companies", list);
 
         return "companies";
@@ -89,6 +97,7 @@ public class MainController {
             if (company.getParent().getId() == 0){
                 company.setParent(null);
             }
+
             companyService.addCompany(company);
         } else {
             if (company.getParent().getId() == 0){

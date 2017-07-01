@@ -10,6 +10,7 @@
 
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css" type="text/css" />
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
             <%--Ajax auto update--%>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -18,7 +19,9 @@
                     $('#updating').load('/companies.html #updating');
                 }, 1000 * 5);   // 5 seconds
             </script>
+
         </head>
+
 
         <body>
             <div class="container-fluid">
@@ -26,6 +29,7 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-8">
+
                         <div id = updating>
 
                             <c:if test="${!empty message}">
@@ -43,15 +47,8 @@
 
                             <c:if test="${!empty companies}">
                                 <h1>Companies List:</h1>
-                                <%--<table class="table">
-                                    <thead>
-                                        <th width="80">ID</th>
-                                        <th width="180">Title</th>
-                                        <th width="180">Aproximated Earnings</th>
-                                    </thead>
 
-                                    <tbody>--%>
-                                   <%-- <li><span class="Collapsable">item 3</span></li>--%>
+                                <br>
 
                                     <c:forEach items="${companies}" var="company">
                                     <ul>
@@ -61,6 +58,7 @@
                                             <td>${company.id}</td>                                                          <span style='padding-left:10px;'> </span>
                                             <td>${company.name}</td>                                                        <span style='padding-left:10px;'> </span>
                                             <td>${company.aproximatedEarnings}</td>                                         <span style='padding-left:10px;'> </span>
+                                            <td>${company.childEarnings}</td>                                               <span style='padding-left:10px;'> </span>
                                             <td><a href="<c:url value='/edit/${company.id}'/>">Edit</a></td>                <span style='padding-left:10px;'> </span>
                                             <td><a href="<c:url value='/remove/${company.id}'/>">Delete</a></td>
                                         <%--</tr>--%>
@@ -88,6 +86,7 @@
 
             <div class="row">
                 <div class="col-md-12">
+
                     <div class="row">
                         <div class="col-md-2">
                         </div>
@@ -117,6 +116,13 @@
                                         Name
                                     </form:label>
                                     <form:input path="name"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <form:label cssClass="col-sm-2 control-label" for="text" path="aproximatedEarnings">
+                                        Earnings
+                                    </form:label>
+                                    <form:input path="aproximatedEarnings"/>
                                 </div>
 
                                 <div class="form-group">

@@ -29,6 +29,11 @@ public class CompanyService {
         if (companyDao.getById(id).getChildCompanies().isEmpty()){
             System.err.println("deleting");
             companyDao.removeById(id);
+        } else {
+            for (Company company : companyDao.getById(id).getChildCompanies()) {
+                removeCompanyById(company.getId());
+            }
+            companyDao.removeById(id);
         }
     }
 

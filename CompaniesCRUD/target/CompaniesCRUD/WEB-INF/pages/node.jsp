@@ -22,6 +22,10 @@
 
         <span style='padding-left:20px;'> </span>
 
+        <td>${company.childEarnings}</td>
+
+        <span style='padding-left:20px;'> </span>
+
         <td><a href="<c:url value='/edit/${company.id}'/>">Edit</a></td>
 
         <span style='padding-left:20px;'> </span>
