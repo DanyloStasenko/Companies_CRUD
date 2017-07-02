@@ -27,7 +27,6 @@ public class CompanyService {
 
     public void removeCompanyById(int id) {
         if (companyDao.getById(id).getChildCompanies().isEmpty()){
-            System.err.println("deleting");
             companyDao.removeById(id);
         } else {
             for (Company company : companyDao.getById(id).getChildCompanies()) {

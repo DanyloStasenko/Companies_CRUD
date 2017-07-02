@@ -26,7 +26,17 @@ public class Company {
 
     private double childEarnings;
 
+    /** Constructors */
     public Company() {
+    }
+
+    public Company(String name) {
+        this.name = name;
+    }
+
+    public Company(String name, double aproximatedEarnings) {
+        this.aproximatedEarnings = aproximatedEarnings;
+        this.name = name;
     }
 
     public Company(int id, double aproximatedEarnings, String name) {
@@ -35,6 +45,7 @@ public class Company {
         this.name = name;
     }
 
+    /** Getters and setters */
     public int getId() {
         return id;
     }
@@ -82,9 +93,7 @@ public class Company {
     }
 
     public double getChildEarnings() {
-        /*if (getParent() == null){
-            return 0;
-        }*/
+
         if (childCompanies.isEmpty()) {
             return aproximatedEarnings;
         } else {
@@ -94,9 +103,7 @@ public class Company {
             }
 
            return sum + aproximatedEarnings;
-
         }
-
     }
 
     public void setChildEarnings(double childEarnings) {

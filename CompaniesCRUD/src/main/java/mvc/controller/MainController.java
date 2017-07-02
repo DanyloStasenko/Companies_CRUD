@@ -24,18 +24,10 @@ public class MainController {
     @RequestMapping("/test")
      public String test(ModelMap model) {
 
-        Company company1 = new Company();
-        company1.setName("Windows");
-
-        Company company2 = new Company();
-        company2.setName("Apple");
-
-        Company company3 = new Company();
-        company3.setName("Yahoo");
-
-        companyService.addCompany(company1);
-        companyService.addCompany(company2);
-        companyService.addCompany(company3);
+        companyService.addCompany(new Company("Windows", 250));
+        companyService.addCompany(new Company("Apple", 200));
+        companyService.addCompany(new Company("Yahoo", 100));
+        companyService.addCompany(new Company("Dell", 350));
 
         model.addAttribute("companies", companyService.getCompaniesList());
 
@@ -45,14 +37,12 @@ public class MainController {
     @RequestMapping("/test2")
     public String test3(ModelMap model) {
 
-        Company company4 = new Company();
-        company4.setName("4");
+        Company child = new Company("Amazon", 100);
+        companyService.addCompany(child);
 
-        companyService.addCompany(company4);
-
-        Company company1 = companyService.getCompanyById(1);
-        company4.setParent(company1);
-        companyService.updateCompany(company4);
+        Company parent = companyService.getCompanyById(1);
+        child.setParent(parent);
+        companyService.updateCompany(child);
 
         return "redirect:/companies";
     }
@@ -60,9 +50,6 @@ public class MainController {
 
     @RequestMapping("/companies")
 	public String companies(ModelMap model) {
-
-        // model.addAttribute("companies", companyService.getCompaniesList());
-        // System.err.println(companyService.getCompaniesList());
 
         model.addAttribute("companyToEdit", new Company());
 
@@ -76,7 +63,6 @@ public class MainController {
             }
         }
 
-
         model.addAttribute("companies", list);
 
         return "companies";
@@ -85,11 +71,21 @@ public class MainController {
     @RequestMapping("edit/{id}")
     public String editTask(@PathVariable("id") int id, Model model){
         model.addAttribute("companyToEdit", companyService.getCompanyById(id));
+
+        List<Company> list = companyService.getCompaniesList();
+        list.removeIf(company -> company.getParent() != null);
+
+        for (Company company : list) {
+            company.setChildEarnings(company.getChildEarnings());
+        }
+
+        model.addAttribute("companies", list);
+
         return "companies";
     }
 
     /**
-     * Adding and editing tasks
+     * Adding and editing companies
      */
     @RequestMapping(value = "/companies/add", method = RequestMethod.POST)
     public String addTask(@ModelAttribute("companyToEdit") Company company, Model model){

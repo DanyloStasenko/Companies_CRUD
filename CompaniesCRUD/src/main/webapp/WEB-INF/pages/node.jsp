@@ -3,36 +3,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false" %>
 
-<%--${company.title}--%>
-
-
-
-
     <ul>
         <tr>
         <td>${company.id}</td>
-
-        <span style='padding-left:20px;'> </span>
-
+                                    <span style='padding-left:20px;'> </span>
         <td>${company.name}</td>
-
-        <span style='padding-left:20px;'> </span>
-
+                                    <span style='padding-left:20px;'> </span>
         <td>${company.aproximatedEarnings}</td>
-
-        <span style='padding-left:20px;'> </span>
-
+                                    <span style='padding-left:20px;'> </span>
         <td>${company.childEarnings}</td>
-
-        <span style='padding-left:20px;'> </span>
-
+                                    <span style='padding-left:20px;'> </span>
         <td><a href="<c:url value='/edit/${company.id}'/>">Edit</a></td>
-
-        <span style='padding-left:20px;'> </span>
-
+                                    <span style='padding-left:20px;'> </span>
         <td><a href="<c:url value='/remove/${company.id}'/>">Delete</a></td>
-
-
 
     <c:forEach var="company" items="${company.childCompanies}">
         <c:set var="company" value="${company}" scope="request"/>
