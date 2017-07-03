@@ -20,7 +20,6 @@ public class CompanyDao {
     protected SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
-
     public void add(Company company){
         getSession().persist(company);
         logger.info(company + " added");
